@@ -1,29 +1,31 @@
 # elementary operations!
 # op1: multiply any equation by non-zero number on both sides
-def rowMult(arr, num, row): 
+def rowMult(matrix, num, row): 
     # take row to be multiplied
-    multBy = arr[i][row]
+    multBy = matrix[i][row]
 
     # multiply row by num
-    for i in len(arr[i]):
-        arr = num * arr[i][row]
+    for i in len(matrix[i]):
+        matrix = num * matrix[i][row]
 
     # return
-    return arr
+    return matrix
 
 # op2: multiply an equation by a scalar and add to another equation
-def rowAdd(arr1, num, row1, row2):
+def rowAdd(matrix, num, row1, row2):
     # num*row1 + row2 -> row2
     # use rowMult
 
-    for i in arr1[i]:
-        arr1 = rowMult(arr1[i], num, row1) + row2[i]
+    for i in matrix[i]:
+        matrix = rowMult(matrix[i], num, row1) + row2[i]
     
-    return arr1
+    return matrix
 
-def rowEchelon():
+def rowEchelon(matrix):
     # make 1st pivot 1
-    
+    if matrix[0] != 1:
+
+        
 
     # make everything under = zero
 
@@ -35,8 +37,14 @@ def augmentedRowEchelon():
 def inverse():
 
 
-def transpose():
+def transpose(matrix):
+    result = matrix
 
+    for i in range(len(matrix[0])):
+        for j in range(len(matrix)):
+            result[j][i] = matrix[i][j]
+
+    return result
 
 def addMatrix(arr1, arr2):
     if len(arr1) != len(arr2):
