@@ -1,73 +1,83 @@
-# elementary operations!
-# op1: multiply any equation by non-zero number on both sides
-def rowMult(matrix, num, row): 
-    # take row to be multiplied
-    multBy = matrix[i][row]
+class operations: 
+    # elementary operations!
+    # op1: multiply any equation by non-zero scalar on both sides
+    def rowMult(matrix, row, scalar): 
+        matrix[row] = matrix[row] * scalar
+        return matrix
 
-    # multiply row by num
-    for i in len(matrix[i]):
-        matrix = num * matrix[i][row]
+    # op2: multiply an equation by a scalar and add to another equation
+    def rowAdd(matrix, targetRow, sourceRow, scalar):
+        matrix[targetRow] = matrix[sourceRow] * scalar + matrix[targetRow]
+        return matrix
 
-    # return
-    return matrix
+    # use op1 and op2 in funcs below
+    def rowEchelon(matrix):
+        rows = len(matrix)
+        cols = len(matrix[0])
 
-# op2: multiply an equation by a scalar and add to another equation
-def rowAdd(matrix, num, row1, row2):
-    # num*row1 + row2 -> row2
-    # use rowMult
+        pivotRow = 0
+        pivotCol = 0
 
-    for i in matrix[i]:
-        matrix = rowMult(matrix[i], num, row1) + row2[i]
-    
-    return matrix
+        while pivotRow < rows and pivotCol < cols:
+            # if pivot = zero skip the column
+            if matrix[pivotRow][pivotCol] == 0:
+                pivotCol += 1
+                continue
 
-def rowEchelon(matrix):
-    # make 1st pivot 1
-    if matrix[0] != 1:
+            # if not already there make the pivot
+            pivotValue = matrix[pivotRow][pivotCol]
+            if pivotValue != 1:
+                matrix = operations.rowMult(matrix, pivotRow, 1 / pivotValue)
 
+            # make everything below the pivot 0
+            for i in range(pivotRow + 1, rows):
+                if matrix[i][pivotCol] != 0:
+                    scalar = -matrix[i][pivotCol]
+                    matrix = operations.rowAdd(matrix, i, pivotRow, scalar)
+
+            # move to the next row and column
+            pivotRow += 1
+            pivotCol += 1
+            
+        return matrix
+
+    def augmentedRowEchelon():
+
+
+    def inverse():
+
+
+    def transpose(matrix):
+        result = matrix
+
+        for i in range(len(matrix[0])):
+            for j in range(len(matrix)):
+                result[j][i] = matrix[i][j]
+
+        return result
+
+    def addMatrix(arr1, arr2):
+        if len(arr1) != len(arr2):
+            return None
+        
+        result = []
+        for i in range(len(arr1)):
+            result.append(arr1[i] + arr2[i])
+        return result
+
+    def subtractMatrix(arr1, arr2):
+        if len(arr1) != len(arr2):
+            return None
+        
+        result = []
+        for i in range(len(arr1)):
+            result.append(arr1[i] - arr2[i])
+        return result
+
+    def matrixMult():
+
+    def dotProd():
         
 
-    # make everything under = zero
-
-    # do that over and over
-
-def augmentedRowEchelon():
-
-
-def inverse():
-
-
-def transpose(matrix):
-    result = matrix
-
-    for i in range(len(matrix[0])):
-        for j in range(len(matrix)):
-            result[j][i] = matrix[i][j]
-
-    return result
-
-def addMatrix(arr1, arr2):
-    if len(arr1) != len(arr2):
-        return None
-    
-    result = []
-    for i in range(len(arr1)):
-        result.append(arr1[i] + arr2[i])
-    return result
-
-def subtractMatrix(arr1, arr2):
-    if len(arr1) != len(arr2):
-        return None
-    
-    result = []
-    for i in range(len(arr1)):
-        result.append(arr1[i] - arr2[i])
-    return result
-
-def matrixMult():
-
-def dotProd():
-    
-
-def getDeterminant():
+    def getDeterminant():
 
