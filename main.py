@@ -130,10 +130,48 @@ class operations:
         
         return result
 
-    def matrixMult():
+    def matrixMult(matrix1, matrix2):
+        # check if columns in matrix1 = rows in matrix2
+        if len(matrix1[0]) != len(matrix2):
+            raise ValueError("matrix multiplication is not possible if dimensions dont align")
 
-    def dotProd():
+        # initialize the result matrix with appropriate dimensions (rows of matrix1 x columns of matrix2)
+        result = [[0] * len(matrix2[0]) for i in range(len(matrix1))]
+
+        # perform the matrix multiplication
+        for i in range(len(matrix1)):
+            for j in range(len(matrix2[0])):
+                # calculates dot product of i(row) of matrix1 and j(column) of matrix2
+                result[i][j] = sum(matrix1[i][k] * matrix2[k][j] for k in range(len(matrix2)))
+
+        return result
+
+
+    def dotProd(vector1, vector2):
+        if len(vector1) != len(vector2):
+            raise ValueError("dot product is not possible if the vectors have different lengths")
+
+        # calculates dot product by summing products of corresponding elements
+        return sum(vector1[i] * vector2[i] for i in range(len(vector1)))
+
+    
+    def getDeterminant(matrix):
+        rows = len(matrix)
+        cols = len(matrix[0])
+        if rows != cols:
+            raise ValueError("matrix must be square (nxn)")
+
+        # base case:
+        # det(A) = ad - bc for a 2x2 matrix [[a, b],[c, d]]
+        if len(matrix) == 2 and len(matrix[0]) == 2:
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+
+        # conver to row echelon
+        matrix = operations.rowEchelon(matrix)
         
-
-    def getDeterminant():
-
+        # after row echelon form, the determinant is the product of the diagonal elements
+        determinant = 1
+        for i in range(rows):
+            determinant *= matrix[i][i]
+        
+        return determinant
